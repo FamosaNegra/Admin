@@ -164,7 +164,7 @@ const MesaMezaninoSchema = new mongoose.Schema({
 
 const MesaMezaninoModel = mongoose.model("MesaMezanino", MesaMezaninoSchema);
 
-const corretorSchema = new mongoose.Schema({
+const corretoresSchema = new mongoose.Schema({
     CPF: {
       type: String,
       required: true,
@@ -182,10 +182,6 @@ const corretorSchema = new mongoose.Schema({
       type: Date,
       required: true
     },
-    telefone: {
-      type: String,
-      required: true
-    },
     rg: {
       type: String,
       required: true
@@ -196,22 +192,6 @@ const corretorSchema = new mongoose.Schema({
         required: true
       },
       numero: {
-        type: String,
-        required: true
-      },
-      complemento: {
-        type: String,
-        required: false
-      },
-      bairro: {
-        type: String,
-        required: true
-      },
-      cidade: {
-        type: String,
-        required: true
-      },
-      estado: {
         type: String,
         required: true
       },
@@ -227,44 +207,10 @@ const corretorSchema = new mongoose.Schema({
     imobiliaria: {
       type: String,
       required: true
-    },
-    categoria_nivel: {
-      type: String,
-      required: true
-    },
-    codigointerno: {
-      type: String,
-      required: true
-    },
-    creci: {
-      type: String,
-      required: true
-    },
-    conta_bancaria: {
-      tipo_conta: {
-        type: String,
-        required: true
-      },
-      banco: {
-        type: String,
-        required: true
-      },
-      agencia: {
-        type: String,
-        required: true
-      },
-      conta: {
-        type: String,
-        required: true
-      },
-      digito: {
-        type: String,
-        required: true
-      }
     }
   });
   
-  const Corretor = mongoose.model("Corretor", corretorSchema);
+  const Corretores = mongoose.model("Corretores", corretoresSchema);
 
   const mesa37Filter = {
     actionType: 'filter',
@@ -298,7 +244,7 @@ const start = async () => {
     databases: [mongooseDb],
     resources: [
         {
-            resource: Corretor,
+            resource: Corretores,
           },
       {
         resource: Mesa37Model,
