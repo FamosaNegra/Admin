@@ -200,10 +200,6 @@ const corretoresSchema = new mongoose.Schema({
         required: true
       }
     },
-    email: {
-      type: String,
-      required: true
-    },
     imobiliaria: {
       type: String,
       required: true
