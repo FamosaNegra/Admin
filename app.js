@@ -1,7 +1,7 @@
 import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
 import express from "express";
-import mongoose from "mongoose";
+import mongoose from "./database.js";
 import * as AdminJSMongoose from "@adminjs/mongoose";
 import { dark, light, noSidebar } from "@adminjs/themes";
 
@@ -19,17 +19,14 @@ AdminJS.registerAdapter({
 const start = async () => {
   const app = express();
 
-  const mongooseDb = await mongoose.connect(
-    "mongodb+srv://Admin:%40Ph974985101@databasemc.w2z5piy.mongodb.net/?retryWrites=true&w=majority")
-
   const admin = new AdminJS({
-    defaultTheme: dark.id,
+    defaultTheme: light,
     availableThemes: [dark, light, noSidebar],
     locale: {
       language: "pt-BR",
       availableLanguages: ["en", "pt-BR"],
     },
-    databases: [mongooseDb],
+    databases: [mongoose],
     resources: [
       {
         resource: Corretores,

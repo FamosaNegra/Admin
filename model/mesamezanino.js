@@ -1,5 +1,6 @@
 
-import mongoose from "mongoose";
+import mongoose from '../database.js';
+import { getApelidos } from './enum.js';
 
   const MesaMezaninoSchema = new mongoose.Schema({
     andar: {
@@ -33,6 +34,7 @@ import mongoose from "mongoose";
     },
     cliente: {
       type: String,
+      enum: await getApelidos(),
       required: true,
     },
     telefone: {

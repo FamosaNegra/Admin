@@ -1,5 +1,6 @@
 
-import mongoose from "mongoose";
+import mongoose from '../database.js';
+import { getApelidos } from './enum.js';
 
   const mesaTerreoSchema = new mongoose.Schema({
     andar: {
@@ -24,6 +25,7 @@ import mongoose from "mongoose";
     },
     corretor: {
       type: String,
+      enum: await getApelidos(),
       required: false
     },
     tipomesa: {

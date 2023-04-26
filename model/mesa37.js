@@ -1,4 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from '../database.js';
+import { getApelidos } from './enum.js';
+
 
 const mesa37Schema = new mongoose.Schema({
     andar: {
@@ -23,6 +25,7 @@ const mesa37Schema = new mongoose.Schema({
     },
     corretor: {
       type: String,
+      enum: await getApelidos(),
       required: false,
     },
     tipomesa: {
@@ -48,6 +51,11 @@ const mesa37Schema = new mongoose.Schema({
   });
   
   const Mesa37Model = mongoose.model("Mesa37", mesa37Schema);
+
+  (async () => {
+    const apelidos = await getApelidos(); // obtem a lista de apelidos dos corretores
+    Mesa37Model.schema.path('corretor').enum = apelidos; // define a lista de apelidos como opções para o campo corretor
+  })();
 
   export default Mesa37Model;
   
