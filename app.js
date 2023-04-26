@@ -75,6 +75,7 @@ const start = async () => {
             "telefone",
             "saida",
           ],
+          
         },
       },
       {
