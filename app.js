@@ -9,6 +9,7 @@ import Corretores from './model/corretores.js';
 import Mesa37Model from "./model/mesa37.js";
 import MesaMezaninoModel from "./model/mesamezanino.js";
 import MesaTerreoModel from "./model/mesaterreo.js";
+
 const PORT = 5000;
 
 AdminJS.registerAdapter({
@@ -52,6 +53,16 @@ const start = async () => {
             "telefone",
             "saida",
           ],
+          filter: { saida: { $exists: true } },
+          href: ({h, resource}) => {
+            return h.resourceActionUrl({
+              resourceId: resource.decorate().id(),
+              actionName: 'list?filters.saida=',
+              params: {
+                'filters.saida': '',
+              },
+            });
+          },
         },
       },
       {
@@ -75,7 +86,16 @@ const start = async () => {
             "telefone",
             "saida",
           ],
-          
+          filter: { saida: { $exists: true } },
+          href: ({h, resource}) => {
+            return h.resourceActionUrl({
+              resourceId: resource.decorate().id(),
+              actionName: 'list?filters.saida=',
+              params: {
+                'filters.saida': '',
+              },
+            });
+          },
         },
       },
       {
@@ -100,6 +120,16 @@ const start = async () => {
             "telefone",
             "saida",
           ],
+          filter: { saida: { $exists: true } },
+          href: ({h, resource}) => {
+            return h.resourceActionUrl({
+              resourceId: resource.decorate().id(),
+              actionName: 'list?filters.saida=',
+              params: {
+                'filters.saida': '',
+              },
+            });
+          },
         },
       },
     ],

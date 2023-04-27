@@ -1,11 +1,6 @@
 import mongoose from '../database.js';
 
 const corretoresSchema = new mongoose.Schema({
-  CPF: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   nome: {
     type: String,
     required: true,
@@ -14,29 +9,11 @@ const corretoresSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  data_nasc: {
-    type: Date,
-    required: true,
-  },
-  rg: {
+  gerente: {
     type: String,
     required: true,
   },
-  endereco: {
-    logradouro: {
-      type: String,
-      required: true,
-    },
-    numero: {
-      type: String,
-      required: true,
-    },
-    cep: {
-      type: String,
-      required: true,
-    },
-  },
-  imobiliaria: {
+  superintendente: {
     type: String,
     required: true,
   },
