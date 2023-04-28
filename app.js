@@ -10,6 +10,7 @@ import Mesa37Model from "./model/mesa37.js";
 import MesaMezaninoModel from "./model/mesamezanino.js";
 import MesaTerreoModel from "./model/mesaterreo.js";
 
+
 const PORT = 5000;
 
 AdminJS.registerAdapter({
