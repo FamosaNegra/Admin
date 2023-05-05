@@ -40,6 +40,7 @@ const start = async () => {
       },
       {
         resource: User,
+        
       },
       {
         resource: Mesa37Model,

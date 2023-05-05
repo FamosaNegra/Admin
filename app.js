@@ -16,7 +16,6 @@ import User from "./model/user.js";
 import passwordsFeature from '@adminjs/passwords';
 import { ComponentLoader } from 'adminjs';
 import bcrypt from 'bcrypt';
-
 const PORT = 5000;
 var app = express();
 
