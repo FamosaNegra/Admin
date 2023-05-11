@@ -10,7 +10,6 @@ const mesa37Schema = new mongoose.Schema({
     },
     mesa: {
       type: String,
-      type: String,
       enum: Object.keys(
         Array.from({ length: 37 }, (_, i) => ({
           [i + 1]: `${i + 1}`,

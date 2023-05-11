@@ -1,6 +1,8 @@
 import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
-import express, { Router } from "express";
+import express, {
+  Router
+} from "express";
 import mongoose from "./database.js";
 import * as AdminJSMongoose from "@adminjs/mongoose";
 import {
@@ -14,12 +16,19 @@ import MesaMezaninoModel from "./model/mesamezanino.js";
 import MesaTerreoModel from "./model/mesaterreo.js";
 import User from "./model/user.js";
 import passwordsFeature from '@adminjs/passwords';
-import { ComponentLoader } from 'adminjs';
+import {
+  ComponentLoader
+} from 'adminjs';
 import bcrypt from 'bcrypt';
+
 const PORT = 5000;
 var app = express();
 
-app.use('/', function(){routes});
+
+
+app.use('/', function () {
+  routes
+});
 
 AdminJS.registerAdapter({
   Resource: AdminJSMongoose.Resource,
@@ -36,16 +45,20 @@ const start = async () => {
     isVisible: true,
     actionType: 'record',
     handler: async (request, response, data) => {
-      const { email, password } = data.record.params;
+      const {
+        email,
+        password
+      } = data.record.params;
       const encryptedPassword = await bcrypt.hash(password, 10);
       data.record.params.encryptedPassword = encryptedPassword;
       return request.resource.handlers.create(request, response, data);
     }
   };
 
-  const componentLoader = new ComponentLoader()
+  const componentLoader = new ComponentLoader();
+
   const admin = new AdminJS({
-    defaultTheme: dark,
+    defaultTheme: dark.id,
     availableThemes: [dark, light, noSidebar],
     locale: {
       language: "pt-BR",
@@ -59,8 +72,12 @@ const start = async () => {
       },
       {
         resource: User,
-        options:{
-          properties: { password: { isVisible: true } },
+        options: {
+          properties: {
+            password: {
+              isVisible: true
+            }
+          },
           features: [
             passwordsFeature({
               componentLoader,
@@ -73,7 +90,7 @@ const start = async () => {
                 const hash = await bcrypt.hash(password, salt);
                 return hash;
               },
-          })
+            })
           ],
           actions: {
             createUser: createUserAction
@@ -83,6 +100,68 @@ const start = async () => {
       {
         resource: Mesa37Model,
         options: {
+          sort: {
+            sortBy: 'updatedAt',
+            direction: 'desc',
+          },
+          actions: {
+            new: {
+              after: async (response, request, context) => {
+                return {
+                  redirectUrl: `/resources/${context.resource.id()}/actions/list?filters.saida=`,
+                };
+              },
+              isAccessible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+            },
+            edit: {
+              isAccessible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+              isVisible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+            },
+            bulkDelete: {
+              isAccessible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+              isVisible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+            },
+            delete: {
+              isAccessible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+              isVisible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+            },
+            liberarMesa: {
+              actionType: 'bulk',
+              icon: 'DateRange',
+              label: 'Definir saida',
+              isAccessible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+              component: false,
+              handler: async (request, response, context) => {
+                const {
+                  records
+                } = context;
+                const currentDate = new Date();
+                await Promise.all(records.map(record => record.update({
+                  saida: currentDate
+                })));
+                return {
+                  records: records.map(record => record.toJSON(context.currentAdmin)),
+                  redirectUrl: `/admin/resources/${context.resource.id()}/actions/list`,
+                };
+              },
+            },
+          },
           listProperties: [
             "andar",
             "mesa",
@@ -100,6 +179,21 @@ const start = async () => {
             "entrada",
             "telefone",
             "saida",
+          ],
+          showProperties: [
+            "andar",
+            "mesa",
+            "status",
+            "corretor",
+            "cliente",
+            "entrada",
+          ],
+          filterProperties: [
+            "andar",
+            "mesa",
+            "status",
+            "corretor",
+            "cliente",
           ],
           filter: {
             saida: {
@@ -123,6 +217,37 @@ const start = async () => {
       {
         resource: MesaTerreoModel,
         options: {
+          actions: {
+            new: {
+              after: async (response, request, context) => {
+                return {
+                  redirectUrl: `/resources/${context.resource.id()}/actions/list?filters.saida=`,
+                };
+              },
+              isAccessible: ({
+                currentAdmin
+              }) => currentAdmin.role === 'Recep',
+            },
+            setSaida: {
+              actionType: 'bulk',
+              icon: 'DateRange',
+              label: 'Definir saida',
+              component: false,
+              handler: async (request, response, context) => {
+                const {
+                  records
+                } = context;
+                const currentDate = new Date();
+                await Promise.all(records.map(record => record.update({
+                  saida: currentDate
+                })));
+                return {
+                  records: records.map(record => record.toJSON(context.currentAdmin)),
+                  redirectUrl: `/admin/resources/${context.resource.id()}/actions/list`,
+                };
+              },
+            },
+          },
           listProperties: [
             "andar",
             "mesa",
@@ -208,22 +333,26 @@ const start = async () => {
     email: 'admin@example.com',
     password: 'password',
   }
-  
+
   const authenticate = async (email, password) => {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      email
+    });
     if (user && await bcrypt.compare(password, user.encryptedPassword)) {
       return user.toJSON();
     }
     return null;
   }
-  
+
 
   const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
-    admin,
-    {
+    admin, {
       cookieName: 'admin-bro',
       cookiePassword: 'superlongandcomplicatedname',
       authenticate,
+      cookie: {
+        maxAge: 86400000, // 1 dia em milissegundos
+      },
     }
   );
 
