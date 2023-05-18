@@ -15,6 +15,7 @@ import Mesa37Model from "./model/mesa37.js";
 import MesaMezaninoModel from "./model/mesamezanino.js";
 import MesaTerreoModel from "./model/mesaterreo.js";
 import User from "./model/user.js";
+import LeadsCV from "./model/LeadsCV.js";
 import passwordsFeature from '@adminjs/passwords';
 import {
   ComponentLoader
@@ -326,6 +327,24 @@ const start = async () => {
           },
         },
       },
+      {
+        resource: LeadsCV,
+        options: {
+          listProperties: [
+            "nomeCliente",
+            "codigo",
+            "telefonePrincipal",
+            "dataCriacaoLead",
+            "sexo",
+            "valorNegocio",
+            "origem",
+            "midia",
+            "pdv",
+            "conversao",
+            "email",
+          ],
+        }
+      }
     ],
   });
 
