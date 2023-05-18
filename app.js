@@ -22,6 +22,7 @@ import {
 } from 'adminjs';
 import bcrypt from 'bcrypt';
 
+import Interacao from "./model/interacoes.js";
 const PORT = 5000;
 var app = express();
 
@@ -214,6 +215,9 @@ const start = async () => {
             });
           },
         },
+      },
+      {
+        resource: Interacao,
       },
       {
         resource: MesaTerreoModel,
