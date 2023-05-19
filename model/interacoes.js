@@ -2,19 +2,19 @@ import mongoose from '../database.js';
 
 const interacaoSchema = new mongoose.Schema({
   interacao: {
+    interacao: String,
     ator: String,
-    codigo: String,
     data: Date,
     dataFull: Date,
     inclusaoData: Date,
     inclusaoDataFull: Date,
     conclusaoData: Date,
     conclusaoDataFull: Date,
-    dataPeriodo: String,
     realizada: Boolean,
     midia: String,
     peca: String,
     produto: String,
+    integradoraExterna: String,
     agencia: String,
     pecaMarketing: String,
     campanhaMarketing: String,
@@ -22,8 +22,10 @@ const interacaoSchema = new mongoose.Schema({
     usuarioIncluiu: String,
     usuarioRealizou: String
   },
-  grupo: String,
-  grupoHierarquia: String,
+  grupo: {
+    grupo: String,
+    hierarquia: String
+  },
   usuario: {
     atendendo: String,
     emailAtendendo: String,
@@ -39,35 +41,40 @@ const interacaoSchema = new mongoose.Schema({
     dataConclusao: Date,
     classificacao: String,
     classificacaoGrupo: String,
-    conversao: String,
-    diasSemInteracao: Number,
-    motivoNaoConversao: String,
-    comissao: Number,
-    valorNegocio: Number
+    convertido: Boolean,
+    motivoNaoConversao: String
   },
   campanha: String,
-  canal: String,
-  meio: String,
-  midia: String,
-  tipoMidia: String,
+  canal: {
+    canal: String,
+    meio: String
+  },
+  midia: {
+    midia: String,
+    tipo: String
+  },
   peca: String,
-  campanhaPeca: String,
-  grupoPeca: String,
-  marca: String,
+  marketing: {
+    campanhaPeca: String,
+    grupoPeca: String
+  },
   produto: {
+    marca: String,
     nome: String,
     sub: String,
     uf: String
   },
   prospect: {
-    name: String,
+    nome: String,
     dataCadastro: Date,
     telefone: String,
-    email: String
+    email: String,
+    cpf: String,
+    hashtag: String
   },
   usuarioDataPrimeira: String,
   usuarioDataUltima: String,
-  usuarioTipoUltimo: String
+  usuarioTipoUltima: String
 });
 
 const Interacao = mongoose.model('Interacao', interacaoSchema);
