@@ -218,6 +218,19 @@ const start = async () => {
       },
       {
         resource: Interacao,
+        options: {
+          listProperties: [
+            "atendimento.codigo",
+            "prospect.nome",
+            "prospect.dataCadastro",
+            "interacao.interacao",
+            "interacao.ator",
+            "interacao.inclusaoDataFull",
+            "interacao.peca",
+            "peca",
+
+          ],
+        }
       },
       {
         resource: MesaTerreoModel,
