@@ -231,8 +231,7 @@ const start = async () => {
 
           ],
         }
-      },
-      {
+      },{
         resource: MesaTerreoModel,
         options: {
           actions: {
