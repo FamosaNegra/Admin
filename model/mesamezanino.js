@@ -10,7 +10,6 @@ import { getApelidos } from './enum.js';
     },
     mesa: {
       type: String,
-      type: String,
       enum: Object.keys(
         Array.from({ length: 17 }, (_, i) => ({
           [i + 1]: `${i + 1}`,
