@@ -24,7 +24,6 @@ const mesa37Schema = new mongoose.Schema({
     },
     corretor: {
       type: String,
-      enum: await getApelidos(),
       required: true,
     },
     tipomesa: {

@@ -24,7 +24,6 @@ import { getApelidos } from './enum.js';
     },
     corretor: {
       type: String,
-      enum: await getApelidos(),
       required: false,
     },
     tipomesa: {
