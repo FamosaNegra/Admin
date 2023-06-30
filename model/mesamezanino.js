@@ -51,9 +51,4 @@ import { getApelidos } from './enum.js';
   
   const MesaMezaninoModel = mongoose.model("MesaMezanino", MesaMezaninoSchema);
 
-  (async () => {
-    const apelidos = await getApelidos(); // obtem a lista de apelidos dos corretores
-    MesaMezaninoModel.schema.path('corretor').enum = apelidos; // define a lista de apelidos como opções para o campo corretor
-  })();
-
   export default MesaMezaninoModel;
