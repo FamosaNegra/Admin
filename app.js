@@ -5,11 +5,6 @@ import express, {
 } from "express";
 import mongoose from "./database.js";
 import * as AdminJSMongoose from "@adminjs/mongoose";
-import {
-  dark,
-  light,
-  noSidebar
-} from "@adminjs/themes";
 import Corretores from './model/corretores.js';
 import Mesa37Model from "./model/mesa37.js";
 import MesaMezaninoModel from "./model/mesamezanino.js";
@@ -60,8 +55,6 @@ const start = async () => {
   const componentLoader = new ComponentLoader();
 
   const admin = new AdminJS({
-    defaultTheme: dark.id,
-    availableThemes: [dark, light, noSidebar],
     locale: {
       language: "pt-BR",
       availableLanguages: ["en", "pt-BR"],
